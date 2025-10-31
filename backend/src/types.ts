@@ -3,7 +3,10 @@ export type Account = {
   name: string;
   parent_id: number | null;
   balance: number;
-  children?: Account[];
+};
+
+export type AccountTree = Account & {
+  children: AccountTree[];
 };
 
 export type AccResult = { id: number; parent_id: number | null };

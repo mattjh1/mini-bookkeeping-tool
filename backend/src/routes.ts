@@ -66,8 +66,8 @@ export const makeRouter = (db: Database) => {
     }
 
     try {
-      const updated = accountService.adjustBalance(accountId, delta);
-      res.json({ ok: true, account: updated });
+      const updatedTree = accountService.adjustBalance(accountId, delta);
+      res.json({ ok: true, tree: updatedTree });
     } catch (error) {
       console.error("Failed to update account balance:", error);
       res.status(500).json({ error: "database error" });

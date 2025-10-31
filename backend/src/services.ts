@@ -1,5 +1,6 @@
 import type { Database } from "better-sqlite3";
-import type { Account, AccResult } from "./types";
+import type { Account, AccountTree, AccResult } from "./types";
+import { buildAccountTree } from "./utils";
 
 export class AccountService {
   constructor(private db: Database) {}
@@ -56,7 +57,7 @@ export class AccountService {
   /**
    * Adjust leaf account balance and cascade updates to parents
    */
-  adjustBalance(accountId: number, delta: number): Account {
+  adjustBalance(accountId: number, delta: number): AccountTree[] {
     const transaction = this.db.transaction(() => {
       // Update leaf balance
       this.db
@@ -68,7 +69,7 @@ export class AccountService {
     });
 
     transaction();
-    return this.getAccountById(accountId)!;
+    return buildAccountTree(this.getAllAccounts());
   }
 
   /**

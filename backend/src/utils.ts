@@ -1,29 +1,22 @@
-import type { Account } from "./types";
+import type { Account, AccountTree } from "./types";
 
 /**
  * Build hierarchical tree from flat account list
  */
-export const buildAccountTree = (accounts: Account[]): Account[] => {
-  const accountMap = new Map<number, Account & { children: Account[] }>();
+export const buildAccountTree = (accounts: Account[]): AccountTree[] => {
+  const map = new Map<number, AccountTree>();
+  accounts.forEach((a) => map.set(a.id, { ...a, children: [] }));
 
-  // Create lookup map with empty children arrays
-  accounts.forEach((account) =>
-    accountMap.set(account.id, { ...account, children: [] }),
-  );
-
-  const roots: Account[] = [];
-
-  // Build tree structure
-  accountMap.forEach((account) => {
-    if (account.parent_id === null) {
-      roots.push(account);
+  const roots: AccountTree[] = [];
+  map.forEach((node) => {
+    if (node.parent_id === null) {
+      roots.push(node);
     } else {
-      const parent = accountMap.get(account.parent_id);
+      const parent = map.get(node.parent_id);
       if (parent) {
-        parent.children.push(account);
+        parent.children.push(node);
       } else {
-        // Orphaned account - add to root
-        roots.push(account);
+        roots.push(node); // orphan
       }
     }
   });
