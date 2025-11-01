@@ -78,13 +78,17 @@ Given more time, I would:
 
 ## What I'd Add With More Time
 
+### bugs
+**Fix balance loss when converting a leaf node to a parent:**
+When a leaf account (e.g., Checking) becomes a parent by adding a sub-account (CheckingTest), its existing balance is dropped. Balances are only stored on leaf nodes, and there’s no migration logic for this case. I’d implement a rebalancing step to reassign or aggregate the previous balance when node types change.
+
 ### Backend
 
 - **Database Layer:** Replace direct `better-sqlite3` queries with Knex or Prisma for schema management, migrations, and cleaner query composition
 - **Validation:** Integrate Zod for request bodies and environment variables
 - **Error Handling:** More granular error messages and consistent HTTP error responses
 - **Documentation:** Auto-generate API docs with Swagger or OpenAPI
-- **Testing:** Expand test coverage for edge cases (invalid inputs, concurrent updates)
+- **Testing:** Expand test coverage for edge cases
 
 ### Frontend
 
