@@ -10,13 +10,15 @@ export const getAccounts = async (): Promise<Account[]> => {
 
 export const createAccount = async (
   name: string,
-  parent_id?: number | null
+  parent_id?: number | null,
 ) => {
   const res = await axios.post(`${API_BASE}/accounts`, { name, parent_id });
   return res.data;
 };
 
 export const updateBalance = async (id: number, delta: number) => {
-  const res = await axios.patch(`${API_BASE}/accounts/${id}/balance`, { delta });
+  const res = await axios.patch(`${API_BASE}/accounts/${id}/balance`, {
+    delta,
+  });
   return res.data;
 };

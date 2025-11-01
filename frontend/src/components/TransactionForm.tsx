@@ -31,7 +31,7 @@ export const TransactionForm = ({ selected, onUpdated }: Props) => {
         mutation.mutate(delta);
       }}
     >
-      <h3>Post Transaction</h3>
+      <h3>Add Balance</h3>
       <input
         type="number"
         step="0.01"
@@ -40,9 +40,9 @@ export const TransactionForm = ({ selected, onUpdated }: Props) => {
         placeholder="Amount (+/-)"
       />
       <button type="submit" className="secondary">
-        Apply
+        Add
       </button>
-      {mutation.isError && <p className="error">Error posting transaction</p>}
+      {mutation.isError && <p className="error">Error adding balance</p>}
       <small>Target: {selected ? selected.name : "None"}</small>
     </form>
   );
